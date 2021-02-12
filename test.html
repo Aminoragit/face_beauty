@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="jsassemble.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <link href="https://fonts.googleapis.com/css?family=Jua&display=swap" rel="stylesheet" />
+
+        <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+            integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+            crossorigin="anonymous"
+        />
+
+        <title>얼짱 측정기</title>
+        <meta name="title" content="얼짱 측정기" />
+        <meta name="subject" content="AI가 판단하는 객관적 얼굴평가!" />
+        <meta
+            name="keywords"
+            content="얼굴 평가하기, 인공지능 얼굴 테스트, 얼굴상, AI얼굴,Awesome,sad"
+        />
+        <meta name="author" content="Aminora" />
+        <link rel="stylesheet" href="style.css" />
+        <link rel="canonical" href="https://face_beauty.site" />
+        <meta property="og:url" content="https://face_beauty.site" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="얼굴 테스트" />
+        <meta
+            property="og:description"
+            content="본인의 얼굴이 어느정도 잘생겼는지 AI가 평가해줍니다!!"
+        />
+        <meta
+            property="og:image"
+            content="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fk.kakaocdn.net%2Fdn%2Fc0eq42%2FbtqCQpiFhFn%2F8KPaOP9q8PXpJFRL7if55K%2Fimg.jpg"
+        />
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+        <script
+            type="text/javascript"
+            src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5e64b3727e862b06"
+        ></script>
+    </head>
+
+    <body>
+        <nav class="p-3 container navbar navbar-expand-lg navbar-light">
+            <a class="navbar-brand" href="https://face_beauty.site/">얼짱 측정기</a>
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarNav"
+                aria-controls="navbarNav"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#"
+                            >얼짱 측정기
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a
+                            class="nav-link"
+                            id="yotube-top-link"
+                            href="https://www.youtube.com/channel/UCQNE2JmbasNYbjGAcuBiRRg"
+                            >조코딩 유튜브 채널</a
+                        >
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <section class="section" style="margin-bottom: 50px;">
+            <h1 class="title">얼짱 측정기(남성)</h1>
+            <h2 class="subtitle">AI가 알려주는 나의 얼짱레벨</h2>
+            <h2 class="sr-only">연예인얼굴 500장으로 학습된 AI의 객관적 판단!</h2>
+            <h3 class="sr-only">
+                Teachable Machine으로 빠르고 쉽게 AI를 만들어보자.
+            </h3>
+            <h4 class="sr-only">
+                본 서비스는 Google의 인공지능 teachable machine 2.0을 활용하였습니다.
+            </h4>
+            <p class="sr-only"></p>
+        </section>
+
+        <script
+            class="jsbin"
+            src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"
+        ></script>
+        <div class="mt-3 container file-upload">
+            <div class="image-upload-wrap">
+                <input
+                    class="file-upload-input"
+                    type="file"
+                    onchange="readURL(this);"
+                    accept="image/*"
+                />
+                <div class="drag-text">
+                    <img src="img/mirror.png" class="mt-5 pt-5 upload" />
+                    <h3 class="mb-5 pb-5 pt-4 upload-text">그대의 얼굴을 내게 알려주시오</h3>
+                </div>
+            </div>
+            <div class="file-upload-content">
+                <img class="file-upload-image" id="face-image" src="#" alt="your image" />
+                <div id="loading" class="animated bounce" style="display: none;">
+                    <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <p class="text-center">AI가 당신의 얼굴을 분석중입니다.</p>
+                </div>
+
+                <p class="result-message"></p>
+
+                <div id="label-container" class="d-flex flex-column justify-content-around">
+                    <div class="d-flex">
+                        <div class="face-label d-flex align-items-center">잘생김</div>
+                        <div class="bar-container position-relative container">
+                            <div class="Awesome-box"></div>
+                            <div
+                                class="d-flex justify-content-center align-items-center Awesome-bar"
+                                style="width: 4%;"
+                            >
+                                <span class="d-block percent-text">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <div class="face-label d-flex align-items-center">슬픔</div>
+                        <div class="bar-container position-relative container">
+                            <div class="sad-box"></div>
+                            <div
+                                class="d-flex justify-content-center align-items-center sad-bar"
+                                style="width: 4%;"
+                            >
+                                <span class="d-block percent-text">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pt-3 image-title-wrap">
+                    <button
+                        type="button p-2"
+                        class="try-again-btn"
+                        onclick="window.location.reload();"
+                    >
+                        <span class="try-again-text">다른 사진으로 재시도</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <footer class="footer pt-5 container d-flex justify-content-center">
+            <div>
+                <p>&copy; Aminora 2021. All Rights Reserved.</p>
+            </div>
+        </footer>
+        <script>
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('.image-upload-wrap').hide();
+                        $('#loading').show();
+                        $('.file-upload-image').attr('src', e.target.result);
+                        $('.file-upload-content').show();
+                        $('.image-title').html(input.files[0].name);
+                    };
+                    reader.readAsDataURL(input.files[0]);
+                    init().then(() => {
+                        console.log('hello');
+                        predict();
+                        $('#loading').hide();
+                    });
+                } else {
+                    removeUpload();
+                }
+            }
+
+            function removeUpload() {
+                $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+                $('.file-upload-content').hide();
+                $('.image-upload-wrap').show();
+            }
+            $('.image-upload-wrap').bind('dragover', function () {
+                $('.image-upload-wrap').addClass('image-dropping');
+            });
+            $('.image-upload-wrap').bind('dragleave', function () {
+                $('.image-upload-wrap').removeClass('image-dropping');
+            });
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
+        <script type="text/javascript">
+            const URL = 'https://teachablemachine.withgoogle.com/models/stPAHPR-F/';
+            let model, webcam, labelContainer, maxPredictions;
+
+            async function init() {
+                const modelURL = URL + 'model.json';
+                const metadataURL = URL + 'metadata.json';
+
+                model = await tmImage.load(modelURL, metadataURL);
+                maxPredictions = model.getTotalClasses();
+                labelContainer = document.getElementById('label-container');
+
+                for (let i = 0; i < maxPredictions; i++) {
+                    // and class labels
+                    labelContainer.appendChild(document.createElement('div'));
+                }
+            }
+            async function predict() {
+                var image = document.getElementById('face-image');
+                const prediction = await model.predict(image, false);
+                console.log(prediction);
+
+                prediction.sort((a, b) => parseFloat(b.probability) - parseFloat(a.probability));
+                console.log(prediction[0].className);
+                var resultTitle;
+                var resultExplain;
+                var result_message;
+                if (prediction[0].className == 'Awesome') {
+                    switch(true) {
+                        case 0.5 <= prediction[0].probability < 0.65:
+                            resultTitle = '평범함';
+                            resultExplain ='잘생김과 못생김이 공존중입니다, 이발을 하고 멋있는 옷을 입어보세요!!! 모든 연예인들도 스타일리스트한테 매번 코칭을 받는답니다! 희망을 가지세요"';
+                            result_message = '';
+                            console.log('test1');
+                            break;
+
+                        case 0.65 <= prediction[0].probability < 0.75:
+                            resultTitle = '적당히 잘생김';
+                            resultExplain =
+                                '평범하게 잘생기셨네요!! 전문가 코칭이나 여러번 실험해서 자신만의 베스트 스타일을 찾아보세요!';
+                            result_message = '';
+                            break;
+
+                        case 0.75 <= prediction[0].probability < 0.9:
+                            resultTitle = '잘생김';
+                            resultExplain =
+                                '잘생기셨습니다, 다른 말은 필요가 없습니다만 조금만 꾸미시면 연예인 데뷔도 가능!!';
+                            result_message = '';
+                            break;
+                        case 0.9 <= prediction[0].probability <= 1.0:
+                            resultTitle = '연예인 LV';
+                            resultExplain = '혹시 연예인이신가요?! 너무 잘생기신거 아닌가요?';
+                            result_message = '';
+                            break;
+
+                        default:
+                            resultTitle = '어.... 판단하기 힘드네요 다른 사진은 없나요?';
+                            result_message = '';
+                            resultExplain = '';
+                            break;
+                    }
+                } else {
+                    switch(true) {
+                        case 0.5 <= prediction[0].probability < 0.65:
+                            resultTitle = '평범함';
+                            resultExplain ='잘생김과 못생김이 공존중입니다, 이발을 하고 멋있는 옷을 입어보세요!!! 모든 연예인들도 스타일리스트한테 매번 코칭을 받는답니다! 희망을 가지세요"';
+                            result_message = '';
+                            console.log('testsad1');
+                            break;
+
+                        case 0.65 <= prediction[0].probability < 0.75:
+                            resultTitle = '조금 슬픕니다';
+                            resultExplain = '얼굴이 인식되지 않습니다, 다른 사진은 없나요? ㅠㅠ';
+                            result_message = '';
+                            console.log('sadtest2');
+                            break;
+
+                        case 0.75 <= prediction[0].probability < 0.9:
+                            resultTitle = '슬픕니다.';
+                            resultExplain = '걱정마세요 제작자도 울고 있습니다.';
+                            result_message = '';
+                            console.log('sadtest3');
+                            break;
+
+                        case 0.9 <= prediction[0].probability <= 1.0:
+                            resultTitle = '울어도 좋습니다.';
+                            resultExplain = 'AI도 눈물을 흘립니다, 외모가 전부는 아니잖아요? ㅠㅠ';
+                            result_message = '';
+                            break;
+
+                        default:
+                            resultTitle = '어.... 판단하기 힘드네요 다른 사진은 없나요?';
+                            resultExplain = '';
+                            result_message = '';
+                            break;
+                    }
+                }
+
+                var title =
+                    "<div class='" +
+                    prediction[0].className +
+                    "-face-title'>" +
+                    resultTitle +
+                    '</div>';
+                var explain = "<div class='face-explain pt-2'>" + resultExplain + '</div>';
+
+                $('.result-message').html(title + explain);
+                var barWidth;
+                for (let i = 0; i < maxPredictions; i++) {
+                    if (prediction[i].probability.toFixed(2) > 0.1) {
+                        barWidth = Math.round(prediction[i].probability.toFixed(2) * 100) + '%';
+                    } else if (prediction[i].probability.toFixed(2) >= 0.01) {
+                        barWidth = '4%';
+                    } else {
+                        barWidth = '2%';
+                    }
+                    var labelTitle;
+                    switch (prediction[i].className) {
+                        case 'Awesome':
+                            labelTitle = '잘생김';
+                            break;
+                        case 'sad':
+                            labelTitle = '슬픔';
+                            break;
+                        default:
+                            labelTitle = '알수없음';
+                    }
+                    var label =
+                        "<div class='face-label d-flex align-items-center'>" +
+                        labelTitle +
+                        '</div>';
+                    var bar =
+                        "<div class='bar-container position-relative container'><div class='" +
+                        prediction[i].className +
+                        "-box'></div><div class='d-flex justify-content-center align-items-center " +
+                        prediction[i].className +
+                        "-bar' style='width: " +
+                        barWidth +
+                        "'><span class='d-block percent-text'>" +
+                        Math.round(prediction[i].probability.toFixed(2) * 100) +
+                        '%</span></div></div>';
+                    labelContainer.childNodes[i].innerHTML = label + bar;
+                }
+            }
+        </script>
+
+        <script>
+            function iosApp() {
+                document.getElementById('coupang').style.display = 'none';
+                $('#coupang ins').hide();
+                document.getElementById('addThis').style.display = 'none';
+                document.getElementById('disqus_thread').style.display = 'none';
+                var kakao = document.getElementsByClassName('kakao_ad_area');
+                for (var i = 0; i < kakao.length; i++) {
+                    if (kakao[i]) {
+                        kakao[i].style.display = 'none';
+                    }
+                }
+                document.getElementById('yotube-top-link').style.display = 'none';
+                document.getElementById('yotube-mid-link').style.display = 'none';
+                document.getElementById('yotube-bottom-link').style.display = 'none';
+            }
+        </script>
+    </body>
+    <!-- 
+image input box
+Copyright (c) 2020 by Aaron Vanston (https://codepen.io/aaronvanston/pen/yNYOXR)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+gender toggle
+Copyright (c) 2020 by Mert Cukuren (https://codepen.io/knyttneve/pen/bPpEZY)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ -->
+</html>
